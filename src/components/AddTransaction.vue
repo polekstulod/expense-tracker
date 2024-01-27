@@ -24,6 +24,8 @@ import { useToast } from 'vue-toastification'
 const text = ref('')
 const amount = ref(0)
 
+const emit = defineEmits(['transactionSubmitted'])
+
 const toast = useToast()
 
 const onSubmit = () => {
@@ -31,6 +33,13 @@ const onSubmit = () => {
     toast.error('Please enter a text and amount')
     return
   }
+
+  const transactionData = {
+    text: text.value,
+    amount: parseFloat(amount.value)
+  }
+
+  emit('transactionSubmitted', transactionData)
 
   text.value = ''
   amount.value = 0
