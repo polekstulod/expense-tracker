@@ -1,7 +1,7 @@
 <template>
   <Header />
   <div class="container">
-    <Balance />
+    <Balance :total="total" />
     <IncomeExpense />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
@@ -15,12 +15,17 @@ import IncomeExpense from './components/IncomeExpense.vue'
 import TransactionList from './components/TransactionList.vue'
 import AddTransaction from './components/AddTransaction.vue'
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const transactions = ref([
-  { id: 1, text: 'Flower', amount: -20 },
-  { id: 2, text: 'Salary', amount: 300 },
-  { id: 3, text: 'Book', amount: -10 },
-  { id: 4, text: 'Camera', amount: 150 }
+  { id: 1, text: 'Flower', amount: -20.03 },
+  { id: 2, text: 'Salary', amount: 300.89 },
+  { id: 3, text: 'Book', amount: -10.1 },
+  { id: 4, text: 'Camera', amount: 189.23 }
 ])
+
+// Calculate total
+const total = computed(() => {
+  return transactions.value.reduce((acc, transaction) => (acc += transaction.amount), 0)
+})
 </script>
